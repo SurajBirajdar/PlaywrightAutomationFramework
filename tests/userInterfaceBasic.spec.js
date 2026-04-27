@@ -31,7 +31,7 @@ test('First playwright test', async ({browser})=>{
 
 );
 
-test.only("UI Control Test",async ({page})=>{
+test("UI Control Test",async ({page})=>{
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const selectDropDown = page.locator("select.form-control");
     await selectDropDown.selectOption("teach");
