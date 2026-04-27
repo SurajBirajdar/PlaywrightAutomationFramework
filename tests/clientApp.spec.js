@@ -13,7 +13,6 @@ test('First playwright test', async ({page})=>{
 ═════════════════════════════════════════════════════════════════════
                     EXPLANATION IN LAYMAN'S TERMS
 ═════════════════════════════════════════════════════════════════════
-
 1. test() - This is like a "TEST CASE" or a "TEST SCENARIO"
    ➜ It's a container where you write all the steps you want to automate
    ➜ Like writing a story: "First, I will do this, then that, then this"
