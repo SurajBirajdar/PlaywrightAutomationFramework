@@ -1,14 +1,36 @@
-const {test, expect} = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
-test('First playwright test', async ({page})=>{
-    await page.goto("https://rahulshettyacademy.com/client");   
-    await page.locator("#userEmail").fill("");
-    await page.locator("#userPassword").fill("");
-    await page.locator("#login").click();
-    await page.locator(".card-body b").first().waitFor();
-    console.log(await page.locator(".card-body b").allTextContents());
+test('First playwright test', async ({ page }) => {
+   await page.goto("https://rahulshettyacademy.com/client");
+   await page.locator("#userEmail").fill("");
+   await page.locator("#userPassword").fill("");
+   await page.locator("#login").click();
+   await page.locator(".card-body b").first().waitFor();
+   console.log(await page.locator(".card-body b").allTextContents());
 }
 );
+
+test('Capture product names', async ({ page }) => {
+   await page.goto("https://rahulshettyacademy.com/client");
+   await page.locator("#userEmail").fill("surajbirajdar0371@gmail.com");
+   await page.locator("#userPassword").fill("Software1!");
+   await page.locator("#login").click();
+   await page.locator(".card-body b").first().waitFor();
+   const cardbody = page.locator(".card-body");
+   console.log(await page.locator(".card-body b").allTextContents());
+   const expectedProductName = "ZARA COAT 3";
+   const count = await cardbody.count();
+   for (let i = 0; i < count; i++) {
+      if (await cardbody.nth(i).locator("b").textContent() === expectedProductName) {
+         const addToCartBtn = cardbody.nth(i).locator("text= Add To Cart");
+         await addToCartBtn.scrollIntoViewIfNeeded();
+         await addToCartBtn.waitFor({ state: 'visible', timeout: 5000 });
+         await addToCartBtn.click();
+         await page.pause();
+         break;
+      }
+   }
+})
 /*
 ═════════════════════════════════════════════════════════════════════
                     EXPLANATION IN LAYMAN'S TERMS
