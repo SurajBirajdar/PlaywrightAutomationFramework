@@ -11,8 +11,9 @@ test('First playwright test', async ({ page }) => {
 );
 
 test('Capture product names', async ({ page }) => {
+   const email = "surajbirajdar0371@gmail.com";
    await page.goto("https://rahulshettyacademy.com/client");
-   await page.locator("#userEmail").fill("surajbirajdar0371@gmail.com");
+   await page.locator("#userEmail").fill(email);
    await page.locator("#userPassword").fill("Software1!");
    await page.locator("#login").click();
    await page.locator(".card-body b").first().waitFor();
@@ -26,10 +27,47 @@ test('Capture product names', async ({ page }) => {
          await addToCartBtn.scrollIntoViewIfNeeded();
          await addToCartBtn.waitFor({ state: 'visible', timeout: 5000 });
          await addToCartBtn.click();
-         await page.pause();
          break;
       }
    }
+   await page.locator("[routerlink*='cart']").click();
+   await page.locator("div li").first().waitFor();
+   const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
+   await expect(bool).toBeTruthy();
+   await page.locator("text='Checkout'").click();
+   await page.locator("[placeholder='Select Country']").pressSequentially("ind", {delay: 150});
+   const dropdown = page.locator(".ta-results");
+   await dropdown.waitFor();
+   const count_dropdown = await dropdown.locator("button").count();
+   for(let i=0; i<count_dropdown; i++) {
+      const text = await dropdown.locator("button").nth(i).textContent();
+      if(text.trim() === "India") {
+         console.log(text);
+         await dropdown.locator("button").nth(i).click();
+         break;
+      }
+   }
+   await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+   await page.locator(".action__submit").click();
+   await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+   const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+   console.log(orderId);
+   await page.locator("button[routerlink='/dashboard/myorders']").click();
+   await page.locator("tbody").waitFor();
+   const rowcount = await page.locator("tbody tr").count();
+   const rows = page.locator("tbody tr");
+   for(let i=0; i<rowcount; i++) {
+      const rowOrderId = await rows.nth(i).locator("th").textContent();
+      if(orderId.includes(rowOrderId)) {
+         await rows.nth(i).locator("button").first().click();
+         break;
+      }
+   }
+
+   const orderIdUnderOrderSummary = await page.locator(".col-text").textContent();
+   await expect(orderId.includes(orderIdUnderOrderSummary)).toBeTruthy();
+
+
 })
 /*
 ═════════════════════════════════════════════════════════════════════

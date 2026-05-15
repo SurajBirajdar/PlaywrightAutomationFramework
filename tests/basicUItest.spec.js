@@ -36,7 +36,7 @@ test("Child window handle", async ({ browser }) => {
     console.log(text);
 })
 
-test.only("dropdown handle", async ({ page }) => {
+test("dropdown handle", async ({ page }) => {
     const documentsLink = page.locator("[href*='documents-request']");
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     await page.locator("#username").fill("rahulshettyacademy ");
@@ -50,5 +50,4 @@ test.only("dropdown handle", async ({ page }) => {
     await expect(page.locator("#terms")).toBeChecked();
     expect(await page.locator("#terms").isChecked()).toBeTruthy();
     await expect(documentsLink).toHaveAttribute("class","blinkingText");
-
 })
