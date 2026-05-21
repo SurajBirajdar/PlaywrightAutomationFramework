@@ -38,3 +38,39 @@ for(var i=0; i<marks.length; i++) {
     sum = sum + marks[i];
 }
 console.log("sum is: " + sum);
+
+let total = marks.reduce((sum,mark)=> sum+mark,0); // If I have to iterate array and accumulate , for e.g, sum of all elements in array, I will use reduce
+console.log("Total marks using reduce anonymous function are: " + total);
+
+var scores = [12,13,14,15,70,45];
+// I wanted to create new array which is having only even numbers
+var evenScores = [];
+for(let i=0; i<scores.length; i++) {
+    if(scores[i] % 2 == 0) {
+        evenScores.push(scores[i]);
+    }
+}
+console.log(evenScores);
+
+let evenFilterScores = scores.filter(score => score%2 == 0);
+console.log(evenFilterScores);
+
+// Map - if I have to map - like each and every element in array multiply by 3
+let eventAfterMap = evenFilterScores.map(element=> element * 3);
+console.log(eventAfterMap);
+
+// First of all filter for even numbers and then mulyiply each element with 3
+let finalAns = scores.filter(element=> element%2 == 0).map(element=> element * 3);
+console.log("Final Ans is: " , finalAns);
+
+// sorting on strings
+let fruits = ["mango", "banana", "grapes", "watermelon"];
+fruits.sort();
+console.log(fruits);
+
+//sorting on numbers
+let numbers = [45,12,67,89,43];
+console.log(numbers.sort());
+
+
+
