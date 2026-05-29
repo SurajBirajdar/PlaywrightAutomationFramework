@@ -4,11 +4,16 @@ function add(a,b) {
 
 let sum = add(5,4);
 console.log(sum);
+let name = "Suraj";
+var greet = "Afternoon";
 
 let sumOfIntegers = function(a,b) {
+    let name = "Birajdar";
     var greet = "Morning";
     return a+b;
 }
+
+console.log(name);
 
 // let keyword scope is inside block only
 // var keyword scope is gloabl but if declare inside function then it's scope becomes inside function only.
